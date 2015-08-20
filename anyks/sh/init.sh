@@ -15,7 +15,7 @@ readonly log=${root}/anyks/log
 readonly confsh=${root}/anyks/sh/conf.sh
 # Список цветов
 readonly t_bold='\033[1m'			# Жирный текст
-readonly t_undr='\033[4m'			# Наклонный текст
+readonly t_undr='\033[4m'			# Подчеркнутый текст
 readonly c_red='\033[0;31m' 		# Красный
 readonly c_green='\033[38;5;148m'	# Зеленый
 readonly c_yellow='\033[38;5;220m'	# Желтый
