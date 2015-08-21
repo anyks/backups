@@ -15,5 +15,5 @@ source ${confsh}
 print_log "Dump all databases MySQL"
 {
 	# Получаем дамп базы данных
-	$(eval echo \${${module}_bin})/mysqldump --user=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --password=$(eval echo \${${module}_password}) --port=$(eval echo \${${module}_port}) --all-databases | gzip -c > ${img}/${module}_${date}.gz
+	$(eval echo \${${module}_bin})/mysqldump --user=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --password=$(eval echo \${${module}_password}) --port=$(eval echo \${${module}_port}) --all-databases --verbose | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log
