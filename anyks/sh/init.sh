@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 #	author:	Forman
 #	skype:	efrantick
@@ -49,6 +49,9 @@ print_log(){
 	fi
 }
 
+# Очищаем старые логи
+rm -rf ${log}/*
+
 # Подгружаем все модули
 for module in $modules
 do
@@ -68,6 +71,8 @@ do
 			# Сообщаем что модуль не найден
 			print_log "${c_red}Module ${module} was not found${c_nc}"
 		fi
+		# Устанавливаем задержку времени на выполнение следующей операции 5 секунд
+		sleep 5
 	fi
 done
 

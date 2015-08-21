@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 #	author:	Forman
 #	skype:	efrantick
@@ -13,24 +13,30 @@ config_params="host port user password remdir olddir curdir file"
 source ${confsh}
 # Выводим сообщение
 print_log "Send files to ftp server backups"
-
+# Получаем значение переменных
+eval user=\${${module}_user}
+eval host=\${${module}_host}
+eval port=\${${module}_port}
+eval password=\${${module}_password}
+eval remdir=\${${module}_remdir}
+eval curdir=\${${module}_curdir}
+eval olddir=\${${module}_olddir}
+eval file=\${${module}_file}
 # Логинимся на ftp сервере
-ftp -n ${ftp_host} ${ftp_port} <<END_SCRIPT
-quote USER ${ftp_user}
-quote PASS ${ftp_password}
+ftp -n ${host} ${port} <<END_SCRIPT
+quote USER ${user}
+quote PASS ${password}
 binary
 prompt
-cd ${ftp_remdir}
-mkdir ${ftp_remdir}${ftp_olddir}
-mdelete ${ftp_remdir}${ftp_olddir}/*
-rmdir ${ftp_remdir}${ftp_olddir}
-rename ${ftp_remdir}${ftp_curdir} ${ftp_remdir}${ftp_olddir}
-mkdir ${ftp_remdir}${ftp_curdir}
-cd ${ftp_remdir}${ftp_curdir}
+cd ${remdir}
+mkdir ${remdir}${olddir}
+mdelete ${remdir}${olddir}/*
+rmdir ${remdir}${olddir}
+rename ${remdir}${curdir} ${remdir}${olddir}
+mkdir ${remdir}${curdir}
+cd ${remdir}${curdir}
 lcd ${img}
-mput ${ftp_file}
+mput ${file}
 ls
 quit
 END_SCRIPT
-#eval dd=\${${module}_${param}}
-# echo $dd

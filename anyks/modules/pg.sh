@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 #	author:	Forman
 #	skype:	efrantick
@@ -8,17 +8,23 @@
 # Выводим сообщение о существовании модуля
 print_log "${c_yellow}Module ${module} - to work with the database PostgreSQL${c_nc}"
 # Считываем параметры из конфигурационного файла
-config_params="host port user password bin"
+config_params="host port db user password bin"
 # Извлекаем данные из конфигурационного файла
 source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases PostgreSQL"
-
+# Получаем значение переменных
+eval bin=\${${module}_bin}
+eval db=\${${module}_db}
+eval user=\${${module}_user}
+eval host=\${${module}_host}
+eval port=\${${module}_port}
+eval password=\${${module}_password}
 {
 	# Запоминаем пароль к базе
-	PGPASSWORD=${pg_password}
+	PGPASSWORD=${password}
 	# Экспортируем пароль
 	export PGPASSWORD
 	# Получаем дамп базы данных
-	${pg_bin}/pg_dumpall --clean --superuser=${pg_user} --host=${pg_host} --port=${pg_port} | gzip -c > ${img}/pgsql_${date}.gz
+	${bin}/pg_dumpall --clean --superuser=${user} --host=${host} --port=${port} --database=${db} --verbose | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log

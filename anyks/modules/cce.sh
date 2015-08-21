@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 #	author:	Forman
 #	skype:	efrantick
@@ -16,5 +16,5 @@ print_log "Assemble archives"
 	# Удаляем старые файлы бекапов
 	rm -rf ${img}/*
 	# Переносим файл бекапов обратно
-	mv /tmp/backup_${date}.tar.gz ${img}
+	mv /tmp/${module}_${date}.tar.gz ${img}
 } 2>&1 | tee ${log}/${module}_${date}.log

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 #	author:	Forman
 #	skype:	efrantick
@@ -13,8 +13,13 @@ config_params="host port user password bin"
 source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases MySQL"
-
+# Получаем значение переменных
+eval bin=\${${module}_bin}
+eval user=\${${module}_user}
+eval host=\${${module}_host}
+eval port=\${${module}_port}
+eval password=\${${module}_password}
 {
 	# Получаем дамп базы данных
-	${my_bin}/mysqldump -u${my_user} -h${my_host} -p${my_password} --port=${my_port} --all-databases | gzip -c > ${img}/mysql_${date}.gz
+	${bin}/mysqldump -u${user} -h${host} -p${password} --port=${port} --all-databases | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log
