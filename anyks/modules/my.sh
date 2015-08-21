@@ -13,13 +13,7 @@ config_params="host port user password bin"
 source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases MySQL"
-# Получаем значение переменных
-eval bin=\${${module}_bin}
-eval user=\${${module}_user}
-eval host=\${${module}_host}
-eval port=\${${module}_port}
-eval password=\${${module}_password}
 {
 	# Получаем дамп базы данных
-	${bin}/mysqldump -u${user} -h${host} -p${password} --port=${port} --all-databases | gzip -c > ${img}/${module}_${date}.gz
+	$(eval echo \${${module}_bin})/mysqldump --user=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --password=$(eval echo \${${module}_password}) --port=$(eval echo \${${module}_port}) --all-databases | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log

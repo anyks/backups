@@ -13,21 +13,15 @@ config_params="host port password bin dump"
 source ${confsh}
 # Выводим сообщение
 print_log "Dump data Redis"
-# Получаем значение переменных
-eval dump=\${${module}_dump}
-eval bin=\${${module}_bin}
-eval host=\${${module}_host}
-eval port=\${${module}_port}
-eval password=\${${module}_password}
 {
 	# Удаляем старые базы данных
 	rm -rf ${dump}/*.rdb
 	# Получаем дамп базы данных
-	${bin}/redis-cli -h ${host} -p ${port} -a ${password} save
+	$(eval echo \${${module}_bin})/redis-cli -h $(eval echo \${${module}_host}) -p $(eval echo \${${module}_port}) -a $(eval echo \${${module}_password}) save
 	# Создаем каталог с дампом Redis
 	mkdir ${img}/${module}_${date}
 	# Перемещаем дамп базы данных Redis
-	mv ${dump}/dump.rdb ${img}/${module}_${date}
+	mv $(eval echo \${${module}_dump})/dump.rdb ${img}/${module}_${date}
 	# Сжимаем дамп Redis
 	compressFile ${img} ${module}_${date} ${img} ${module}
 	# Удаляем старые данные базы

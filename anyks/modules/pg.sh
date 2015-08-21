@@ -13,18 +13,11 @@ config_params="host port db user password bin"
 source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases PostgreSQL"
-# Получаем значение переменных
-eval bin=\${${module}_bin}
-eval db=\${${module}_db}
-eval user=\${${module}_user}
-eval host=\${${module}_host}
-eval port=\${${module}_port}
-eval password=\${${module}_password}
 {
 	# Запоминаем пароль к базе
-	PGPASSWORD=${password}
+	PGPASSWORD=$(eval echo \${${module}_password})
 	# Экспортируем пароль
 	export PGPASSWORD
 	# Получаем дамп базы данных
-	${bin}/pg_dumpall --clean --superuser=${user} --host=${host} --port=${port} --database=${db} --verbose | gzip -c > ${img}/${module}_${date}.gz
+	$(eval echo \${${module}_bin})/pg_dumpall --clean --superuser=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --port=$(eval echo \${${module}_port}) --database=$(eval echo \${${module}_db}) --verbose | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log

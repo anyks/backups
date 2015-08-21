@@ -13,15 +13,11 @@ config_params="host port user password bin"
 source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases MongoDB"
-# Получаем значение переменных
-eval bin=\${${module}_bin}
-eval host=\${${module}_host}
-eval port=\${${module}_port}
 {
 	# Создаем каталог с дампом MongoDB
 	mkdir ${img}/${module}_${date}
 	# Получаем дамп базы данных
-	${bin}/mongodump --host ${host} --port ${port} --out ${img}/${module}_${date}
+	$(eval echo \${${module}_bin})/mongodump --host $(eval echo \${${module}_host}) --port $(eval echo \${${module}_port}) --out ${img}/${module}_${date}
 	# Сжимаем дамп MongoDB
 	compressFile ${img} ${module}_${date} ${img} ${module}
 	# Удаляем старые данные базы

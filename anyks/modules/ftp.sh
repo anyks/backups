@@ -13,30 +13,21 @@ config_params="host port user password remdir olddir curdir file"
 source ${confsh}
 # Выводим сообщение
 print_log "Send files to ftp server backups"
-# Получаем значение переменных
-eval user=\${${module}_user}
-eval host=\${${module}_host}
-eval port=\${${module}_port}
-eval password=\${${module}_password}
-eval remdir=\${${module}_remdir}
-eval curdir=\${${module}_curdir}
-eval olddir=\${${module}_olddir}
-eval file=\${${module}_file}
 # Логинимся на ftp сервере
-ftp -n ${host} ${port} <<END_SCRIPT
-quote USER ${user}
-quote PASS ${password}
+ftp -n $(eval echo \${${module}_host}) $(eval echo \${${module}_port}) <<END_SCRIPT
+quote USER $(eval echo \${${module}_user})
+quote PASS $(eval echo \${${module}_password})
 binary
 prompt
-cd ${remdir}
-mkdir ${remdir}${olddir}
-mdelete ${remdir}${olddir}/*
-rmdir ${remdir}${olddir}
-rename ${remdir}${curdir} ${remdir}${olddir}
-mkdir ${remdir}${curdir}
-cd ${remdir}${curdir}
+cd $(eval echo \${${module}_remdir})
+mkdir $(eval echo \${${module}_remdir})$(eval echo \${${module}_olddir})
+mdelete $(eval echo \${${module}_remdir})$(eval echo \${${module}_olddir})/*
+rmdir $(eval echo \${${module}_remdir})$(eval echo \${${module}_olddir})
+rename $(eval echo \${${module}_remdir})$(eval echo \${${module}_curdir}) $(eval echo \${${module}_remdir})$(eval echo \${${module}_olddir})
+mkdir $(eval echo \${${module}_remdir})$(eval echo \${${module}_curdir})
+cd $(eval echo \${${module}_remdir})$(eval echo \${${module}_curdir})
 lcd ${img}
-mput ${file}
+mput $(eval echo \${${module}_file})
 ls
 quit
 END_SCRIPT
