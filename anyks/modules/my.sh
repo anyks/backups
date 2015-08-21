@@ -14,6 +14,8 @@ source ${confsh}
 # Выводим сообщение
 print_log "Dump all databases MySQL"
 {
+	# Исправляем базу данных
+	$(eval echo \${${module}_bin})/mysqlcheck --user=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --password=$(eval echo \${${module}_password}) --port=$(eval echo \${${module}_port}) --repair --all-databases --verbose
 	# Получаем дамп базы данных
 	$(eval echo \${${module}_bin})/mysqldump --user=$(eval echo \${${module}_user}) --host=$(eval echo \${${module}_host}) --password=$(eval echo \${${module}_password}) --port=$(eval echo \${${module}_port}) --all-databases --verbose | gzip -c > ${img}/${module}_${date}.gz
 } 2>&1 | tee ${log}/${module}_${date}.log
