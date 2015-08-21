@@ -12,7 +12,7 @@ print_log "Assemble archives"
 
 {
 	# Выполняем сжатие файлов архивов
-	compressFile ${img}/../ img /tmp backup
+	compressFile ${img}/../ img /tmp ${module}
 	# Удаляем старые файлы бекапов
 	rm -rf ${img}/*
 	# Переносим файл бекапов обратно
