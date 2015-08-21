@@ -9,7 +9,6 @@
 print_log "${c_yellow}Module ${module} - for backup files${c_nc}"
 # Выводим сообщение
 print_log "Assemble archives"
-
 {
 	# Выполняем сжатие файлов каталога /usr/local/etc
 	compressFile /usr/local etc ${img} usr_local_etc
