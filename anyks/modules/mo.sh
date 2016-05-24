@@ -1,5 +1,5 @@
-#!/bin/bash
-# 
+#!/usr/bin/env bash
+#
 #	author:	Forman
 #	skype:	efrantick
 #	phone:	+7(920)672-33-22
