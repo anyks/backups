@@ -64,14 +64,14 @@ ftp
 
 Конфигурационные файлы модулей находятся в каталоге "conf". Названия конфигурационных файлов совпадают с названиями модулей
 
-`anyks/conf/redis.conf`
+`MySQL: anyks/conf/my.conf`
 
 ```
 "host":		"192.168.0.1",
-"port":		"6379",
-"password":	"password",
-"bin":		"/usr/local/bin",
-"dump":		"/var/db/redis"
+"port":		"3306",
+"user":		"mysql",
+"password":	"mysql",
+"bin":		"/usr/local/bin"
 ```
 
 Пример модуля копирования файлов
