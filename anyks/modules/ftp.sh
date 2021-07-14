@@ -14,7 +14,7 @@ source ${confsh}
 # Выводим сообщение
 print_log "Send files to ftp server backups"
 # Логинимся на ftp сервере
-ftp -n $(eval echo \${${module}_host}) $(eval echo \${${module}_port}) <<END_SCRIPT
+ftp -p -n $(eval echo \${${module}_host}) $(eval echo \${${module}_port}) <<END_SCRIPT
 quote USER $(eval echo \${${module}_user})
 quote PASS $(eval echo \${${module}_password})
 binary
